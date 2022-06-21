@@ -6,7 +6,6 @@ defmodule MediumGraphqlApiWeb.Schema.Types.Usertype do
     field(:first_name, :string)
     field(:last_name, :string)
     field(:email, :string)
-    # field(:password_hash, :string)
     field(:role, :string)
   end
 
