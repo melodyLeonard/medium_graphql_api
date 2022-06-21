@@ -17,4 +17,9 @@ defmodule MediumGraphqlApiWeb.Schema.Types.Usertype do
     field(:password_confirmation, non_null(:string))
     field(:role, :string)
   end
+
+  input_object :login_input_type do
+    field(:email, non_null(:string))
+    field(:password, non_null(:string))
+  end
 end

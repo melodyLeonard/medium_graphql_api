@@ -7,6 +7,9 @@ defmodule MediumGraphqlApiWeb.Resolvers.UserResolver do
   end
 
   def register_user(_, %{input: input}, _) do
-     Accounts.create_user(input)
+     case Accounts.create_user(input) do
+      {:ok, %Accounts.User{}} -> {:ok, %Accounts.User{}}
+      _ -> {:error, "User could not be created"}
+     end
   end
 end

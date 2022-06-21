@@ -6,4 +6,5 @@ defmodule MediumGraphqlApiWeb.Schema.Types do
   alias MediumGraphqlApiWeb.Schema.Types
 
   import_types(Types.Usertype)
+  import_types(Types.Sessiontype)
 end
