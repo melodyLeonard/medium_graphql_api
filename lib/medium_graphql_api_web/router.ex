@@ -5,8 +5,14 @@ defmodule MediumGraphqlApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", MediumGraphqlApiWeb do
+  scope "/api" do
     pipe_through :api
+
+    forward("/docs", Absinthe.Plug, schema: MediumGraphqlApiWeb.Schema, interface: :playground)
+
+    if Mix.env() == :dev do
+      forward("/graphiql", Absinthe.Plug.GraphiQL, schema: MediumGraphqlApiWeb.Schema, interface: :playground)
+    end
   end
 
   # Enables LiveDashboard only for development
