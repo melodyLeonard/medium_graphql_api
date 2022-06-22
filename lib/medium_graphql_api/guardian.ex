@@ -3,9 +3,8 @@ defmodule MediumGraphqlApi.Guardian do
 
   alias MediumGraphqlApi.Accounts
 
-  def subject_for_token(%{id: id}, _claims) do
-    sub = to_string(id)
-    {:ok, sub}
+  def subject_for_token(%Accounts.User{id: id}, _claims) do
+    {:ok, to_string(id)}
   end
 
   def subject_for_token(_, _) do
@@ -13,11 +12,14 @@ defmodule MediumGraphqlApi.Guardian do
   end
 
   def resource_from_claims(%{"sub" => id}) do
-    user = Accounts.get_user!(id)
-    {:ok,  user}
+    case Accounts.get_user!(id) do
+      nil -> {:error, :resource_not_found}
+      user -> {:ok, user}
+    end
   end
 
   def resource_from_claims(_claims) do
     {:error, :reason_for_error}
   end
+  
 end
